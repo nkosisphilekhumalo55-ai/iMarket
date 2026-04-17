@@ -1,0 +1,78 @@
+<div>
+  <h1 id="name"></h1>
+  <p id="price"></p>
+
+  <div style="display:flex; gap:10px; align-items:center; margin-top:15px;">
+    
+    <button onclick="minusQty()" style="padding:8px 14px;border-radius:10px;">−</button>
+
+    <span id="qty" style="font-size:18px;">1</span>
+
+    <button onclick="plusQty()" style="padding:8px 14px;border-radius:10px;">+</button>
+
+  </div>
+
+  <button onclick="addToCart()" style="margin-top:20px;">
+    Add to Cart
+  </button>
+</div><button onclick="buyNow()" style="margin-top:10px; width:100%;">
+  Buy Now
+</button><script>
+function buyNow() {
+  let checkoutItem = {
+    name: product.name,
+    price: product.price,
+    qty: qty || 1
+  };
+
+  localStorage.setItem("checkoutItem", JSON.stringify(checkoutItem));
+
+  window.location.href = "checkout.html?mode=single";
+}
+</script><script>
+let urlParams = new URLSearchParams(window.location.search);
+let singleMode = urlParams.get("mode") === "single";
+
+let itemsBox = document.getElementById("items");
+let totalBox = document.getElementById("total");
+
+let total = 0;
+let items = [];
+
+if (singleMode) {
+  let item = JSON.parse(localStorage.getItem("checkoutItem"));
+  items = [item];
+} else {
+  items = JSON.parse(localStorage.getItem("cart")) || [];
+}
+
+if (items.length === 0) {
+  itemsBox.innerHTML = "<div class='empty'>Your cart is empty</div>";
+} else {
+
+  items.forEach(item => {
+    let qty = item.qty || 1;
+    let itemTotal = item.price * qty;
+    total += itemTotal;
+
+    let div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `
+      <span>${item.name} × ${qty}</span>
+      <span>R${itemTotal}</span>
+    `;
+    itemsBox.appendChild(div);
+  });
+
+  totalBox.innerHTML = "<b>Total: R" + total + "</b>";
+}
+
+function pay() {
+  alert("Payment successful (Apple-style demo)");
+
+  localStorage.removeItem("cart");
+  localStorage.removeItem("checkoutItem");
+
+  window.location.href = "index.html";
+}
+</script>
