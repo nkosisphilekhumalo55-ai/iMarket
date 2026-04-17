@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>iMarket</title>
+<section class="iphone-catalogue">
+
+<h2>Explore iPhone</h2>
+
+<div class="iphone-row">
+
+<div class="iphone-row">
+
+<div class="iphone-item">
+
+
+</div>
+
+</section>
+<style>
+/* ========== GLOBAL ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+}
+
+body {
+  background: #0a0a0a;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* ========== NAVBAR ========== */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10,10,10,0.6);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+nav h1 {
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+nav span {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* ========== HERO ========== */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+}
+
+.hero h2 {
+  font-size: 60px;
+  font-weight: 600;
+}
+
+.hero p {
+  margin-top: 15px;
+  color: #aaa;
+  font-size: 18px;
+}
+
+.hero button {
+  margin-top: 25px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  color: black;
+  cursor: pointer;
+}
+
+/* ========== PRODUCTS ========== */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 80px 40px;
+}<h3 style="padding:40px; font-size:28px;">iPhone Catalogue</h3>
+<!-- iPHONE CATALOGUE -->
+<section class="products" id="iphone-catalogue">
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1567705310743-5f9b1a1c1b12?w=800
+    <h4>iPhone XR</h4>
+    <p>From R5,999</p>
+    <button onclick="addToCart('iPhone XR')">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src=https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800
+
+    <h4>iPhone 11</h4>
+    <p>From R6,999</p>
+    <button onclick="addToCart('iPhone 11')">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src=https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?w=800
+    <h4>iPhone 12</h4>
+    <p>From R8,999</p>
+    <button onclick="addToCart('iPhone 12')">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src=https://images.unsplash.com/photo-1695048133142-1f3d5c2b2b5a?w=800
+
+    <h4>iPhone 16</h4>
+    <p>From R21,999</p>
+    <button onclick="addToCart('iPhone 16')">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src=https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800
+    <h4>iPhone 17</h4>
+    <p>From R24,999</p>
+    <button onclick="addToCart('iPhone 17')">Add to Cart</button>
+  </div>
+<h3 style="padding:40px 40px 10px; font-size:28px;">iPad Catalogue</h3>
+
+<div class="products">
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-pro-13-select-wifi-spacegray-202210?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPad Pro</h4>
+    <p>R22,999</p>
+    <button onclick="addToCart('iPad Pro', 22999)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-air-finish-select-202405-blue?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPad Air</h4>
+    <p>R14,999</p>
+    <button onclick="addToCart('iPad Air', 14999)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-10th-gen-finish-select-blue-202212?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPad 10th Gen</h4>
+    <p>R9,999</p>
+    <button onclick="addToCart('iPad 10th Gen', 9999)">Add to Cart</button>
+  </div>
+
+</div>
+</section>
+.card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(15px);
+  transition: 0.3s;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+/* FIX IMAGE (NO ZOOM) */
+.card img {
+  width: 160px;
+  height: 260px;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+  border-radius: 15px;
+}
+
+.card h4 {
+  margin-top: 10px;
+}
+
+.card p {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.card button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  background: white;
+  cursor: pointer;
+}
+
+/* ========== CART ========== */
+.cart {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: rgba(255,255,255,0.1);
+  padding: 15px 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+</style>
+</head>
+
+<body>
+
+<body>
+
+<nav>
+  <input type="text" id="searchInput" placeholder="Search products...">
+  <h1>iMarket</h1>
+  <span>iPhones • iPads • Premium Resale</span>
+  <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+</nav>
+<a href="checkout.html" style="text-decoration:none; color:white;">
+  🛒 Bag (<span id="cartCount">0</span>)
+</a>
+<!-- HERO -->
+<div class="hero">
+  <h2>iMarket</h2>
+  <p>Premium iPhones & iPads. Clean. Fast. Reliable.</p>
+
+  <button class="shop-now" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
+    Shop Now →
+  </button>
+</div>
+<!-- IPHONES -->
+<h3 style="padding:40px; font-size:28px;">iPhone Catalogue</h3>
+
+<div class="products">
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-blue-select-202309?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPhone 15</h4>
+    <p>R17,999</p>
+    <button onclick="addToCart('iPhone 15', 17999)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-blue-select-202209?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPhone 14</h4>
+    <p>R13,999</p>
+    <button onclick="addToCart('iPhone 14', 13999)">Add to Cart</button>
+  </div>
+
+</div>
+
+<!-- IPADS -->
+<h3 style="padding:40px; font-size:28px;">iPad Catalogue</h3>
+
+<div class="products">
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-pro-finish-select-202210-spacegray?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPad Pro</h4>
+    <p>R22,999</p>
+    <button onclick="addToCart('iPad Pro', 22999)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-air-finish-select-202405-blue?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPad Air</h4>
+    <p>R14,999</p>
+    <button onclick="addToCart('iPad Air', 14999)">Add to Cart</button>
+  </div>
+
+</div>
+
+<!-- CART -->
+<div class="cart">
+  🛒 Cart: <span id="cartCount">0</span>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  localStorage.setItem("cart", JSON.stringify(cart));
+  document.getElementById("cartCount").innerText = cart.length;
+}
+
+document.getElementById("cartCount").innerText = cart.length;
+</script>
+
+</body>
+    Shop Now
+  </button>
+</div>
+
+<div class="products" id="shop">
+<h3 style="padding:40px; font-size:28px;">iPad Catalogue</h3>
+
+<div class="products">
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-pro-13-select-wifi-spacegray-202210?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPad Pro</h4>
+    <p>R22,999</p>
+    <button onclick="addToCart('iPad Pro', 22999)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-air-finish-select-202405-blue?wid=470&hei=556&fmt=png-alpha">
+    <p>R14,999</p>
+    <button onclick="addToCart('iPad Air', 14999)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-10th-gen-finish-select-blue-202210?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPad 10th Gen</h4>
+    <p>R9,999</p>
+    <button onclick="addToCart('iPad 10th Gen', 9999)">Add to Cart</button>
+  </div>
+
+</div>
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-blue-select-202309?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPhone 15</h4>
+    <p>R17,999</p>
+    <button onclick="addToCart('iPhone 15')">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-blue-select-202209?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPhone 14</h4>
+    <p>R13,999</p>
+    <button onclick="addToCart('iPhone 14')">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-blue-select-2021?wid=470&hei=556&fmt=png-alpha">
+    <h4>iPhone 13</h4>
+    <p>R11,499</p>
+    <button onclick="addToCart('iPhone 13')">Add to Cart</button>
+  </div>
+
+</div>
+
+<div class="cart">
+  🛒 Cart: <span id="cartCount">0</span>
+</div>
+
+<script>
+let cart = 0;
+
+function addToCart(item) {
+  cart++;
+  document.getElementById("cartCount").innerText = cart;
+  alert(item + " added to cart");
+}
+</script>
+<script>
+function addToCart(item) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart.push(item);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  document.getElementById("cartCount").innerText = cart.length;
+}
+
+// load cart count on page load
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+document.getElementById("cartCount").innerText = cart.length;
+</script><script>
+function openProduct(name, price, img) {
+  localStorage.setItem("selectedProduct", JSON.stringify({
+    name,
+    price,
+    img
+  }));
+
+  window.location.href = "product.html";
+}
+</script>
+</body>
+</html>
