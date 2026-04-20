@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - iMarket</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;
+width:100%;
+padding:15px 30px;
+background:rgba(10,10,10,0.7);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+z-index:1000;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* CONTAINER */
+.container{
+padding:120px 20px 100px;
+max-width:800px;
+margin:auto;
+}
+
+/* ITEM */
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+margin-bottom:10px;
+background:rgba(255,255,255,0.05);
+border-radius:15px;
+backdrop-filter:blur(10px);
+}
+
+.item button{
+padding:6px 10px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#ff4d4d;
+color:white;
+}
+
+/* TOTAL */
+.total{
+margin-top:20px;
+padding:20px;
+background:rgba(255,255,255,0.08);
+border-radius:15px;
+font-size:18px;
+}
+
+/* CHECKOUT */
+.checkout{
+margin-top:15px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+.empty{
+text-align:center;
+padding:100px 20px;
+color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<h2>🛍 Cart</h2>
+</nav>
+
+<div class="container" id="cartContainer"></div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function renderCart(){
+
+let container = document.getElementById("cartContainer");
+
+container.innerHTML = "";
+
+if(cart.length === 0){
+container.innerHTML = `
+<div class="empty">
+<h2>Your cart is empty</h2>
+<p>Go add some products 🛍</p>
+</div>`;
+return;
+}
+
+let total = 0;
+
+cart.forEach((item, index) => {
+
+total += item.price;
+
+container.innerHTML += `
+<div class="item">
+<div>
+<strong>${item.name}</strong><br>
+R${item.price}
+</div>
+
+<button onclick="removeItem(${index})">
+Remove
+</button>
+</div>
+`;
+
+});
+
+container.innerHTML += `
+<div class="total">
+Total: <b>R${total}</b>
+</div>
+
+<button class="checkout" onclick="checkout(${total})">
+Checkout Now
+</button>
+`;
+
+}
+
+function removeItem(index){
+cart.splice(index,1);
+localStorage.setItem("cart", JSON.stringify(cart));
+renderCart();
+}
+
+function checkout(total){
+
+let message = "Hello iMarket, I want to order:%0A";
+
+cart.forEach(item=>{
+message += "- " + item.name + " (R" + item.price + ")%0A";
+});
+
+message += "%0ATotal: R" + total;
+
+window.open("https://wa.me/27646826832?text=" + message, "_blank");
+}
+
+renderCart();
+
+</script>
+
+</body>
+</html>
