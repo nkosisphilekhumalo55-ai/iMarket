@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iPhone</title>
+
+<style>
+
+body{
+background:black;
+color:white;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;
+margin:0;
+padding:40px;
+}
+
+.product-container{
+display:flex;
+gap:60px;
+justify-content:center;
+align-items:center;
+}
+
+/* big image */
+
+.product-image img{
+width:320px;
+}
+
+/* right side */
+
+.product-info{
+max-width:400px;
+}
+
+.selector{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+.option{
+padding:10px 18px;
+border-radius:20px;
+background:rgba(255,255,255,0.08);
+cursor:pointer;
+border:1px solid rgba(255,255,255,0.15);
+}
+
+.option:hover{
+background:rgba(255,255,255,0.2);
+}
+
+.price{
+font-size:28px;
+margin-top:20px;
+}
+
+.buy-btn{
+margin-top:20px;
+padding:15px 30px;
+background:white;
+color:black;
+border:none;
+border-radius:25px;
+font-size:16px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<a href="product.html">
+
+<img src="images/iphone15.png">
+
+<h3>iPhone 15</h3>
+
+</a>
+<div class="product-info">
+
+<h1>iPhone 15</h1>
+
+<h3>Storage</h3>
+
+<div class="selector">
+
+<div class="option" onclick="selectStorage(128,14000)">128GB</div>
+
+<div class="option" onclick="selectStorage(256,16000)">256GB</div>
+
+<div class="option" onclick="selectStorage(512,18500)">512GB</div>
+
+</div>
+
+<h3>Colour</h3>
+
+<div class="selector">
+
+<div class="option" onclick="changeColor('blue')">Blue</div>
+
+<div class="option" onclick="changeColor('black')">Black</div>
+
+<div class="option" onclick="changeColor('pink')">Pink</div>
+
+</div>
+
+<div class="price" id="price">
+R14 000
+</div>
+
+<button class="buy-btn">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function selectStorage(size, price){
+
+document.getElementById("price").innerText = "R " + price.toLocaleString()
+
+}
+
+function changeColor(color){
+
+document.getElementById("phoneImage").src =
+"images/iphone15-" + color + ".png"
+
+}
+
+</script>
+
+</body>
+
+</html>
