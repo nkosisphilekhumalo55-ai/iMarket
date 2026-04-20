@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wishlist - iMarket</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 30px;
+background:rgba(10,10,10,0.7);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+z-index:1000;
+}
+
+nav h1{
+font-size:20px;
+}
+
+/* GRID */
+.container{
+padding:120px 30px 60px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+/* CARD */
+.card{
+background:rgba(255,255,255,0.05);
+border-radius:20px;
+padding:20px;
+text-align:center;
+backdrop-filter:blur(15px);
+}
+
+.card img{
+width:150px;
+height:200px;
+object-fit:contain;
+display:block;
+margin:auto;
+}
+
+.card p{
+color:#aaa;
+margin-top:5px;
+}
+
+.btn{
+margin-top:10px;
+padding:10px;
+width:100%;
+border:none;
+border-radius:12px;
+cursor:pointer;
+background:rgba(255,255,255,0.1);
+color:white;
+transition:0.25s;
+}
+
+.btn:hover{
+background:rgba(255,255,255,0.2);
+}
+
+.empty{
+text-align:center;
+padding:120px 20px;
+color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<h1>Wishlist ❤️</h1>
+</nav>
+
+<div id="wishlistContainer" class="container"></div>
+
+<script>
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+let container = document.getElementById("wishlistContainer");
+
+function renderWishlist(){
+
+container.innerHTML = "";
+
+if(wishlist.length === 0){
+container.innerHTML = `
+<div class="empty">
+<h2>Your wishlist is empty</h2>
+<p>Add items from the store ❤️</p>
+</div>`;
+return;
+}
+
+wishlist.forEach((item, index) => {
+
+container.innerHTML += `
+<div class="card">
+<img src="https://via.placeholder.com/150">
+<h3>${item}</h3>
+
+<button class="btn" onclick="removeItem(${index})">
+Remove
+</button>
+
+<button class="btn">
+Buy Now
+</button>
+</div>
+`;
+});
+
+}
+
+function removeItem(index){
+wishlist.splice(index,1);
+localStorage.setItem("wishlist", JSON.stringify(wishlist));
+renderWishlist();
+}
+
+renderWishlist();
+
+</script>
+
+</body>
+</html>
