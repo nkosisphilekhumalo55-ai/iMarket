@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMarket</title>
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 30px;
+background:rgba(10,10,10,0.7);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+z-index:1000;
+}
+
+nav h1{font-size:20px;}
+
+nav input{
+padding:8px 12px;
+border-radius:10px;
+border:none;
+outline:none;
+background:rgba(255,255,255,0.08);
+color:white;
+}
+
+/* ICONS */
+.nav-icons{
+display:flex;
+gap:12px;
+align-items:center;
+}
+
+.icon{
+width:46px;
+height:46px;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+border-radius:14px;
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(18px);
+text-decoration:none;
+}
+
+.icon svg{
+width:22px;
+height:22px;
+stroke:white;
+fill:none;
+stroke-width:2;
+}
+
+.icon span{
+position:absolute;
+top:-6px;
+right:-6px;
+background:white;
+color:black;
+font-size:10px;
+width:16px;
+height:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+font-weight:600;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:radial-gradient(circle,#1a1a1a,#000);
+}
+
+.hero h2{font-size:60px;}
+.hero p{color:#aaa;margin-top:10px;}
+
+.hero button{
+margin-top:25px;
+padding:14px 30px;
+border:none;
+border-radius:30px;
+background:white;
+cursor:pointer;
+font-weight:500;
+}
+
+/* PRODUCTS */
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:28px;
+padding:120px 40px 80px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+border-radius:24px;
+padding:28px;
+text-align:center;
+backdrop-filter:blur(20px);
+transition:0.3s;
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+/* IMAGE */
+.img-box{
+width:100%;
+height:280px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:radial-gradient(circle at center, #1a1a1a, #000);
+border-radius:18px;
+overflow:hidden;
+margin-bottom:10px;
+}
+
+.img-box img{
+max-width:170px;
+max-height:240px;
+object-fit:contain;
+filter:drop-shadow(0 25px 40px rgba(0,0,0,0.7));
+transition:0.4s ease;
+}
+
+.card:hover .img-box img{
+transform:scale(1.08);
+}
+
+/* BUTTON */
+.btn{
+width:100%;
+margin-top:10px;
+padding:12px;
+border-radius:12px;
+border:none;
+cursor:pointer;
+background:rgba(255,255,255,0.1);
+color:white;
+}
+
+/* WHATSAPP */
+.whatsapp{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#25D366;
+padding:14px 20px;
+border-radius:30px;
+color:white;
+text-decoration:none;
+font-weight:500;
+}
+
+/* ========================= */
+/* PRODUCT PAGE (NEW ADDITION) */
+/* ========================= */
+
+#productPage{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:#0a0a0a;
+z-index:2000;
+padding:80px 20px;
+text-align:center;
+}
+
+#productPage img{
+width:260px;
+max-width:90%;
+margin-top:20px;
+filter:drop-shadow(0 30px 60px rgba(0,0,0,0.8));
+}
+
+#productPage h2{
+margin-top:20px;
+font-size:28px;
+}
+
+#productPage p{
+margin-top:10px;
+color:#aaa;
+font-size:18px;
+}
+
+#productPage button{
+margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+}
+
+/* back button */
+.back{
+position:absolute;
+top:20px;
+left:20px;
+background:rgba(255,255,255,0.1);
+color:white;
+}
+
+.add{
+background:white;
+color:black;
+margin-left:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<input type="text" id="search" placeholder="Search products...">
+
+<h1>iMarket</h1>
+
+<div class="nav-icons">
+
+<a href="wishlist.html" class="icon">
+<svg viewBox="0 0 24 24">
+<path d="M12 21s-7-5-10-9C0 8 3 5 6 5c2 0 3.5 1 6 3 2.5-2 4-3 6-3 3 0 6 3 4 7-2 4-10 9-10 9z"></path>
+</svg>
+<span id="wishlistCount">0</span>
+</a>
+
+<a href="cart.html" class="icon">
+<svg viewBox="0 0 24 24">
+<path d="M7 8h10l1 13H6l1-13z"></path>
+<path d="M9 8a3 3 0 0 1 6 0"></path>
+</svg>
+<span id="cartCount">0</span>
+</a>
+
+</div>
+
+</nav>
+
+<div class="hero">
+<h2>iMarket</h2>
+<p>Premium Apple Devices</p>
+<button onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
+Shop Now
+</button>
+</div>
+
+<div class="products" id="shop"></div>
+
+<a class="whatsapp" href="https://wa.me/27706418906" target="_blank">
+WhatsApp Order
+</a>
+
+<!-- PRODUCT PAGE -->
+<div id="productPage">
+<button class="back" onclick="closeProduct()">Back</button>
+
+<img id="pImg">
+<h2 id="pName"></h2>
+<p id="pPrice"></p>
+
+<button class="add" onclick="addFromPage()">Add to Cart</button>
+</div>
+
+<script>
+
+let products = [
+{
+name:"iPhone XR",
+price:5999,
+img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-xr-yellow-select-201809?wid=470&hei=556&fmt=png-alpha"
+},
+{
+name:"iPhone 11",
+price:6999,
+img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-11-black-select-2019?wid=470&hei=556&fmt=png-alpha"
+},
+{
+name:"iPhone 12",
+price:8999,
+img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-12-black-select-2020?wid=470&hei=556&fmt=png-alpha"
+},
+{
+name:"iPhone 13",
+price:10999,
+img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-midnight-select-2021?wid=470&hei=556&fmt=png-alpha"
+},
+{
+name:"iPhone 14",
+price:13999,
+img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-midnight-select-2022?wid=470&hei=556&fmt=png-alpha"
+},
+{
+name:"iPhone 15",
+price:17999,
+img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-black-select-2023?wid=470&hei=556&fmt=png-alpha"
+}
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+let selectedProduct = null;
+
+function render(){
+
+let html="";
+
+products.forEach((p,i)=>{
+
+html+=`
+<div class="card" onclick="openProduct(${i})">
+
+<div class="img-box">
+<img src="${p.img}">
+</div>
+
+<h4>${p.name}</h4>
+<p>R${p.price}</p>
+
+</div>
+`;
+});
+
+document.getElementById("shop").innerHTML=html;
+}
+
+/* OPEN PRODUCT PAGE */
+function openProduct(i){
+selectedProduct = products[i];
+
+document.getElementById("productPage").style.display="block";
+document.getElementById("pImg").src = selectedProduct.img;
+document.getElementById("pName").innerText = selectedProduct.name;
+document.getElementById("pPrice").innerText = "R" + selectedProduct.price;
+}
+
+/* CLOSE */
+function closeProduct(){
+document.getElementById("productPage").style.display="none";
+}
+
+/* ADD FROM PAGE */
+function addFromPage(){
+cart.push(selectedProduct);
+localStorage.setItem("cart",JSON.stringify(cart));
+document.getElementById("cartCount").innerText=cart.length;
+}
+
+function addToCart(i){
+cart.push(products[i]);
+localStorage.setItem("cart",JSON.stringify(cart));
+document.getElementById("cartCount").innerText=cart.length;
+}
+
+function addToWishlist(i){
+wishlist.push(products[i]);
+localStorage.setItem("wishlist",JSON.stringify(wishlist));
+document.getElementById("wishlistCount").innerText=wishlist.length;
+}
+
+render();
+
+document.getElementById("cartCount").innerText=cart.length;
+document.getElementById("wishlistCount").innerText=wishlist.length;
+
+</script>
+
+</body>
+</html>
