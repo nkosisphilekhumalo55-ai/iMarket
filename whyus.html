@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Us - iMarket</title>
+
+<style>
+
+/* SAME STYLE AS YOUR SITE */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 30px;
+background:rgba(10,10,10,0.7);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+nav h1{
+font-size:20px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+
+/* CONTENT */
+.container{
+padding-top:120px;
+max-width:900px;
+margin:auto;
+text-align:center;
+}
+
+.container h2{
+font-size:40px;
+margin-bottom:15px;
+}
+
+.container p{
+color:#aaa;
+font-size:18px;
+margin-bottom:40px;
+}
+
+/* BOXES */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:0 20px;
+}
+
+.box{
+background:rgba(255,255,255,0.05);
+border-radius:20px;
+padding:25px;
+backdrop-filter:blur(20px);
+transition:0.3s;
+}
+
+.box:hover{
+transform:translateY(-5px);
+}
+
+.box h3{
+margin-bottom:10px;
+}
+
+.box p{
+font-size:14px;
+color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<h1>iMarket</h1>
+<a href="index.html">← Back</a>
+</nav>
+
+<div class="container">
+
+<h2>Why Choose iMarket</h2>
+
+<p>
+We focus on premium Apple devices, clean experience, and trusted service.
+</p>
+
+<div class="grid">
+
+<div class="box">
+<h3>✔ Authentic Devices</h3>
+<p>We sell genuine Apple products only.</p>
+</div>
+
+<div class="box">
+<h3>⚡ Fast Response</h3>
+<p>Quick replies on WhatsApp for orders.</p>
+</div>
+
+<div class="box">
+<h3>💰 Fair Pricing</h3>
+<p>Competitive prices on all iPhones.</p>
+</div>
+
+<div class="box">
+<h3>🚚 Easy Ordering</h3>
+<p>Simple checkout via WhatsApp.</p>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html><!-- WHY US PAGE -->
+<div id="whyUsPage" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:#0a0a0a;
+z-index:4000;
+padding:80px 30px;
+text-align:center;
+">
+
+<h2 style="font-size:40px;margin-bottom:20px;">Why Choose iMarket</h2>
+
+<p style="color:#aaa;max-width:700px;margin:auto;line-height:1.7;font-size:18px;">
+We provide premium Apple devices that are fully tested, verified, and quality checked before delivery.  
+Our goal is to give you original products, fast delivery, secure payments, and reliable customer support across South Africa.
+</p>
+
+<div style="margin-top:40px;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;">
+
+<div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:18px;width:200px;">
+⭐ Trusted Seller
+</div>
+
+<div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:18px;width:200px;">
+🚚 Fast Delivery
+</div>
+
+<div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:18px;width:200px;">
+🔒 Secure Payments
+</div>
+
+<div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:18px;width:200px;">
+📞 24/7 Support
+</div>
+
+</div>
+
+<button onclick="closeWhyUs()" style="
+margin-top:40px;
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:white;
+color:black;
+cursor:pointer;
+">
+Close
+</button>
+
+</div>
