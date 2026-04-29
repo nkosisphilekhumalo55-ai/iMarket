@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMarket</title>
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 30px;
+background:rgba(10,10,10,0.7);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+z-index:1000;
+}
+
+nav h1{font-size:20px;}
+
+/* SEARCH WRAPPER */
+.search-box{
+position:relative;
+}
+
+nav input{
+padding:8px 12px;
+border-radius:10px;
+border:none;
+outline:none;
+background:rgba(255,255,255,0.08);
+color:white;
+}
+
+/* SUGGESTIONS DROPDOWN */
+#suggestions{
+position:absolute;
+top:42px;
+left:0;
+width:100%;
+min-width:240px;
+background:rgba(20,20,20,0.96);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:12px;
+overflow:hidden;
+display:none;
+z-index:2000;
+}
+
+.suggestion-item{
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px;
+cursor:pointer;
+transition:0.2s ease;
+}
+
+.suggestion-item:hover{
+background:rgba(255,255,255,0.08);
+}
+
+.suggestion-item img{
+width:34px;
+height:44px;
+object-fit:contain;
+flex:0 0 auto;
+}
+
+.suggestion-text{
+display:flex;
+flex-direction:column;
+gap:2px;
+}
+
+.suggestion-text strong{
+font-size:14px;
+font-weight:500;
+}
+
+.suggestion-text span{
+font-size:12px;
+color:#aaa;
+}
+
+/* ICONS */
+.nav-icons{
+display:flex;
+gap:12px;
+align-items:center;
+}
+
+.icon{
+width:46px;
+height:46px;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+border-radius:14px;
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(18px);
+text-decoration:none;
+}
+
+.icon svg{
+width:22px;
+height:22px;
+stroke:white;
+fill:none;
+stroke-width:2;
+}
+
+.icon span{
+position:absolute;
+top:-6px;
+right:-6px;
+background:white;
+color:black;
+font-size:10px;
+width:16px;
+height:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+font-weight:600;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:radial-gradient(circle,#1a1a1a,#000);
+}
+
+.hero h2{font-size:60px;}
+.hero p{color:#aaa;margin-top:10px;}
+
+.hero button{
+margin-top:25px;
+padding:14px 30px;
+border:none;
+border-radius:30px;
+background:white;
+cursor:pointer;
+font-weight:500;
+}
+
+/* TITLE */
+.title{
+padding:120px 40px 10px;
+font-size:28px;
+}
+
+/* PRODUCTS */
+.products{
+display:flex;
+flex-wrap:nowrap;
+overflow-x:auto;
+gap:28px;
+padding:20px 40px 80px;
+scroll-behavior:smooth;
+}
+
+.products::-webkit-scrollbar{
+height:8px;
+}
+
+.products::-webkit-scrollbar-track{
+background:rgba(255,255,255,0.05);
+border-radius:10px;
+}
+
+.products::-webkit-scrollbar-thumb{
+background:rgba(255,255,255,0.2);
+border-radius:10px;
+}
+
+.products::-webkit-scrollbar-thumb:hover{
+background:rgba(255,255,255,0.3);
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+border-radius:24px;
+padding:28px;
+text-align:center;
+backdrop-filter:blur(20px);
+transition:0.3s;
+cursor:pointer;
+flex:0 0 240px;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+/* IMAGE */
+.img-box{
+width:100%;
+height:280px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:radial-gradient(circle at center, #1a1a1a, #000);
+border-radius:18px;
+overflow:hidden;
+margin-bottom:10px;
+}
+
+.img-box img{
+max-width:170px;
+max-height:240px;
+object-fit:contain;
+filter:drop-shadow(0 25px 40px rgba(0,0,0,0.7));
+transition:0.4s ease;
+}
+
+.card:hover .img-box img{
+transform:scale(1.08);
+}
+
+/* WHATSAPP */
+.whatsapp{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#086336;
+padding:14px 20px;
+border-radius:30px;
+color:white;
+text-decoration:none;
+font-weight:500;
+}
+
+/* PRODUCT PAGE */
+#productPage{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:#0a0a0a;
+z-index:2000;
+padding:80px 20px;
+text-align:center;
+}
+
+#productPage img{
+width:260px;
+max-width:90%;
+margin-top:20px;
+filter:drop-shadow(0 30px 60px rgba(0,0,0,0.8));
+}
+
+#productPage h2{
+margin-top:20px;
+font-size:28px;
+}
+
+#productPage p{
+margin-top:10px;
+color:#aaa;
+font-size:18px;
+}
+
+#productPage button{
+margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+}
+
+.back{
+position:absolute;
+top:20px;
+left:20px;
+background:rgba(255,255,255,0.1);
+color:white;
+}
+
+.add{
+background:white;
+color:black;
+margin-left:10px;
+}
+
+/* TRUST */
+.trust-section{
+padding:60px 40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.trust-card{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:18px;
+text-align:center;
+backdrop-filter:blur(15px);
+}
+
+.trust-card h3{
+margin-top:10px;
+font-size:16px;
+}
+
+.trust-card p{
+color:#aaa;
+font-size:14px;
+margin-top:8px;
+}
+
+.trust-icon{
+width:34px;
+height:34px;
+margin-bottom:10px;
+}
+
+/* REVIEWS */
+.reviews-section{
+padding:60px 40px;
+background:rgba(0,0,0,0.5);
+border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.reviews-section h2{
+text-align:center;
+font-size:28px;
+margin-bottom:40px;
+}
+
+.reviews-container{
+display:flex;
+flex-wrap:nowrap;
+overflow-x:auto;
+gap:20px;
+scroll-behavior:smooth;
+pading:20px 0;
+}
+
+.reviews-container::-webkit-scrollbar{
+height:8px;
+}
+
+.reviews-container::-webkit-scrollbar-track{
+background:rgba(255,255,255,0.05);
+border-radius:10px;
+}
+
+.reviews-container::-webkit-scrollbar-thumb{
+background:rgba(255,255,255,0.2);
+border-radius:10px;
+}
+
+.review-card{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:18px;
+padding:25px;
+backdrop-filter:blur(15px);
+flex:0 0 300px;
+}
+
+.review-header{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:15px;
+}
+
+.review-avatar{
+width:48px;
+height:48px;
+border-radius:50%;
+background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:20px;
+}
+
+.review-info h4{
+font-size:14px;
+margin-bottom:2px;
+}
+
+.review-info .rating{
+font-size:12px;
+color:#ffa500;
+letter-spacing:2px;
+}
+
+.review-text{
+color:#aaa;
+font-size:13px;
+line-height:1.6;
+margin-bottom:12px;
+}
+
+.review-date{
+font-size:11px;
+color:#666;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Search products...">
+<div id="suggestions"></div>
+</div>
+
+<h1>iMarket</h1>
+
+<div class="nav-icons">
+
+<a href="wishlist.html" class="icon">
+<svg viewBox="0 0 24 24">
+<path d="M12 21s-7-5-10-9C0 8 3 5 6 5c2 0 3.5 1 6 3 2.5-2 4-3 6-3 3 0 6 3 4 7-2 4-10 9-10 9z"></path>
+</svg>
+<span id="wishlistCount">0</span>
+</a>
+
+<a href="cart.html" class="icon">
+<svg viewBox="0 0 24 24">
+<path d="M7 8h10l1 13H6l1-13z"></path>
+<path d="M9 8a3 3 0 0 1 6 0"></path>
+</svg>
+<span id="cartCount">0</span>
+</a>
+
+</div>
+
+</nav>
+
+<div class="hero">
+<h2>iMarket</h2>
+<p>Premium Apple Devices</p>
+<button onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
+Shop Now
+</button>
+</div>
+
+<h2 class="title">iPhones</h2>
+<div class="products" id="shop"></div>
+
+<h2 class="title">iPads</h2>
+<div class="products" id="ipadShop"></div>
+
+<a class="whatsapp" href="https://wa.me/27706418906" target="_blank">
+WhatsApp Order
+</a>
+
+<div id="productPage">
+<button class="back" onclick="closeProduct()">Back</button>
+
+<img id="pImg">
+<h2 id="pName"></h2>
+<p id="pPrice"></p>
+<p id="pSpecs"></p>
+
+<button class="add" onclick="addFromPage()">Add to Cart</button>
+<button class="add" onclick="addToWishlistFromPage()">Wishlist</button>
+
+</div>
+
+<!-- TRUST SECTION -->
+<div class="trust-section">
+
+<div class="trust-card">
+<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+<path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4z"/>
+<path d="M9 12l2 2 4-4"/>
+</svg>
+<h3>Legit Apple Product</h3>
+<p>100% authentic & verified devices</p>
+</div>
+
+<div class="trust-card">
+<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+<path d="M12 1v22"/>
+<path d="M5 6h14"/>
+</svg>
+<h3>Warranty Support</h3>
+<p>Secure warranty on all devices</p>
+</div>
+
+<div class="trust-card">
+<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+<path d="M3 16l3 3 5-5"/>
+<path d="M21 8l-9 9"/>
+</svg>
+<h3>Fast Delivery</h3>
+<p>Quick nationwide shipping</p>
+</div>
+
+<div class="trust-card">
+<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+<path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+<h3>Customer Care</h3>
+<p>24/7 support assistance</p>
+</div>
+
+</div></div>
+
+<!-- REVIEWS SECTION -->
+<div class="reviews-section">
+<h2>Customer Reviews</h2>
+<div class="reviews-container">
+
+<div class="review-card">
+<div class="review-header">
+<div class="review-avatar">JM</div>
+<div class="review-info">
+<h4>John Mkhize</h4>
+<div class="rating">★★★★★</div>
+</div>
+</div>
+<div class="review-text">"Amazing quality! Got my iPhone 15 in perfect condition. Fast delivery and excellent customer service. Highly recommend iMarket!"</div>
+<div class="review-date">2 days ago</div>
+</div>
+
+<div class="review-card">
+<div class="review-header">
+<div class="review-avatar">SA</div>
+<div class="review-info">
+<h4>Sarah Anderson</h4>
+<div class="rating">★★★★★</div>
+</div>
+</div>
+<div class="review-text">"Bought an iPad Air and couldn't be happier. The product is genuine and arrived well packaged. Great prices too!"</div>
+<div class="review-date">5 days ago</div>
+</div>
+
+<div class="review-card">
+<div class="review-header">
+<div class="review-avatar">TK</div>
+<div class="review-info">
+<h4>Thabo Kumalo</h4>
+<div class="rating">★★★★☆</div>
+</div>
+</div>
+<div class="review-text">"Very satisfied with my purchase. The iPhone 13 works perfectly. Delivery was quick and the warranty is legitimate. Thanks!"</div>
+<div class="review-date">1 week ago</div>
+</div>
+
+<div class="review-card">
+<div class="review-header">
+<div class="review-avatar">LN</div>
+<div class="review-info">
+<h4>Lindiwe Ntuli</h4>
+<div class="rating">★★★★★</div>
+</div>
+</div>
+<div class="review-text">"Best online store for Apple products. Authentic devices, great prices, and amazing support. WhatsApp ordering is super convenient!"</div>
+<div class="review-date">10 days ago</div>
+</div>
+
+<div class="review-card">
+<div class="review-header">
+<div class="review-avatar">MD</div>
+<div class="review-info">
+<h4>Mpilo Dlamini</h4>
+<div class="rating">★★★★★</div>
+</div>
+</div>
+<div class="review-text">"Ordered iPad Pro and iPhone XR together. Everything arrived on time and in perfect condition. Will definitely order again!"</div>
+<div class="review-date">2 weeks ago</div>
+</div>
+
+</div>
+</div>
+
+<script>
+
+/* DATA */
+let products = [
+{name:"iPhone XR",price:5999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-xr-yellow-select-201809?wid=470&hei=556&fmt=png-alpha",specs:"6.1-inch • A12 Bionic"},
+{name:"iPhone 11",price:6999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-11-black-select-2019?wid=470&hei=556&fmt=png-alpha",specs:"6.1-inch • A13 Bionic"},
+{name:"iPhone 12",price:8999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-12-black-select-2020?wid=470&hei=556&fmt=png-alpha",specs:"OLED • 5G"},
+{name:"iPhone 13",price:10999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-midnight-select-2021?wid=470&hei=556&fmt=png-alpha",specs:"A15 Bionic"},
+{name:"iPhone 14",price:13999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-midnight-select-2022?wid=470&hei=556&fmt=png-alpha",specs:"Crash Detection"},
+{name:"iPhone 15",price:17999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-black-select-2023?wid=470&hei=556&fmt=png-alpha",specs:"USB-C • 48MP"}
+];
+
+let ipads = [
+{name:"iPad 9th Gen",price:7999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/ipad-10-2-in-cell-select-202109?wid=470&hei=556&fmt=png-alpha",specs:"10.2-inch • A13"},
+{name:"iPad 10th Gen",price:10999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/ipad-10th-gen-finish-select-202210?wid=470&hei=556&fmt=png-alpha",specs:"10.9-inch • A14"},
+{name:"iPad Air",price:13999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/ipad-air-select-202203?wid=470&hei=556&fmt=png-alpha",specs:"M1 Chip"},
+{name:"iPad Pro",price:19999,img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/ipad-pro-13-select-202210?wid=470&hei=556&fmt=png-alpha",specs:"M2 Chip"}
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+let selectedProduct = null;
+
+/* FIXED RENDER */
+function render(){
+
+let html="";
+products.forEach((p,i)=>{
+html+=`
+<div class="card" onclick="openProduct(${i})">
+<div class="img-box"><img src="${p.img}"></div>
+<h4>${p.name}</h4>
+<p>R${p.price}</p>
+</div>`;
+});
+document.getElementById("shop").innerHTML=html;
+
+let ipadHTML="";
+ipads.forEach((p,i)=>{
+ipadHTML+=`
+<div class="card" onclick="openIPad(${i})">
+<div class="img-box"><img src="${p.img}"></div>
+<h4>${p.name}</h4>
+<p>R${p.price}</p>
+</div>`;
+});
+document.getElementById("ipadShop").innerHTML=ipadHTML;
+
+}
+
+/* OPEN */
+function openProduct(i){
+selectedProduct = products[i];
+showProduct();
+}
+
+function openIPad(i){
+selectedProduct = ipads[i];
+showProduct();
+}
+
+function showProduct(){
+document.getElementById("productPage").style.display="block";
+document.getElementById("pImg").src=selectedProduct.img;
+document.getElementById("pName").innerText=selectedProduct.name;
+document.getElementById("pPrice").innerText="R"+selectedProduct.price;
+document.getElementById("pSpecs").innerText=selectedProduct.specs;
+}
+
+function closeProduct(){
+document.getElementById("productPage").style.display="none";
+}
+
+/* CART */
+function addFromPage(){
+cart.push(selectedProduct);
+localStorage.setItem("cart",JSON.stringify(cart));
+document.getElementById("cartCount").innerText=cart.length;
+}
+
+/* WISHLIST */
+function addToWishlistFromPage(){
+wishlist.push(selectedProduct);
+localStorage.setItem("wishlist",JSON.stringify(wishlist));
+document.getElementById("wishlistCount").innerText=wishlist.length;
+}
+
+/* INIT */
+render();
+document.getElementById("cartCount").innerText=cart.length;
+document.getElementById("wishlistCount").innerText=wishlist.length;
+
+/* LIVE SEARCH SUGGESTIONS */
+const searchInput = document.getElementById("search");
+const suggestions = document.getElementById("suggestions");
+
+function hideSuggestions(){
+suggestions.style.display = "none";
+suggestions.innerHTML = "";
+}
+
+searchInput.addEventListener("input", function(e){
+const value = e.target.value.trim().toLowerCase();
+
+if(!value){
+hideSuggestions();
+return;
+}
+
+const allProducts = [...products, ...ipads];
+const matches = allProducts.filter(p => p.name.toLowerCase().includes(value)).slice(0, 5);
+
+if(matches.length === 0){
+suggestions.innerHTML = `
+<div class="suggestion-item" style="cursor:default;">
+<div class="suggestion-text">
+<strong>No results found</strong>
+<span>Try another search</span>
+</div>
+</div>`;
+suggestions.style.display = "block";
+return;
+}
+
+suggestions.innerHTML = matches.map(p => `
+<div class="suggestion-item" onclick="openSuggestion('${p.name}')">
+<img src="${p.img}" alt="${p.name}">
+<div class="suggestion-text">
+<strong>${p.name}</strong>
+<span>R${p.price}</span>
+</div>
+</div>
+`).join("");
+
+suggestions.style.display = "block";
+});
+
+function openSuggestion(name){
+const found = products.find(p => p.name === name) || ipads.find(p => p.name === name);
+if(found){
+selectedProduct = found;
+showProduct();
+}
+hideSuggestions();
+searchInput.value = "";
+}
+
+document.addEventListener("click", function(e){
+if(!e.target.closest(".search-box")){
+hideSuggestions();
+}
+});
+
+</script>
+
+</body>
+</html>
